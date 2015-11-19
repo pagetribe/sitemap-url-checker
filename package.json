@@ -18,6 +18,7 @@
   "homepage": "https://github.com/pagetribe/sitemap-url-checker",
   "dependencies": {
     "request": "^2.66.0",
-    "roboto": "^0.8.2"
+    "roboto": "^0.8.2",
+    "sitemapper": "0.0.1"
   }
 }

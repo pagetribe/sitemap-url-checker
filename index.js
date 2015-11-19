@@ -6,42 +6,71 @@
 // })
 
 var http = require('http');
-var urls = ['http://example.com/docs/guide/', 'http://www.google.com.au', 'http://www.blahasdf.com'];
+var sitemap = require('sitemapper');
+var urls = '';
+
+sitemap.getSites(process.argv.slice(2)[0], function(err, sites){
+    if(!err) {
+      urls = sites;
+
+      for(var key in urls) {
+        var url = urls[key];
+        console.log(url);
+        // console.log(value);
+        http.get(url, function(res) { })
+          .on('error', function(e) { console.log("Got error: " + e.message, " : " + url); });
+      }
+
+      // console.log(Object.keys(urls));
+    }
+    else {
+      console.log(error);
+    }
+});
+
+
+
+
+
+
+// var urls = ['http://example.com/docs/guide/', 'http://www.google.com.au', 'http://www.blahasdf.com'];
 // var urls = ['http://adrianmejia.com/atom.xml', 'http://twitrss.me/twitter_user_to_rss/?user=amejiarosario'];
 var completed_requests = 0;
 
-urls.forEach(function(url) {
-  // var responses = [];
 
-  http.get(url, function(res) {
-  //   console.log("Got response: " + res.statusCode, " : " + url);
-    }).on('error', function(e) {
-      console.log("Got error: " + e.message, " : " + url);
-    });
+// urls.forEach(function(url) {
+//   // var responses = [];
 
-  // http.get(url, function(res) {
-    // console.log(responses)
-    // console.log(res.statusCode);
-    // console.log({status: res.statusCode, url: url});
-    // res.on('data', function(chunk){
-    //   console.log(chunk)
-    //   responses.push(chunk);
-    // });
 
-    // res.on('end', function(){
-    //   if (completed_requests++ == urls.length - 1) {
-    //     // All downloads are completed
-    //     // console.log('body:', responses.join());
-    //     console.log(responses);
-    //   }
-    // });
-  // });
-//   }).on('error', function(e){
-//     console.log(url);
-//   }).on('end', function(){
-//     console.log('end');
-//   });
-});
+//   http.get(url, function(res) {
+//   //   console.log("Got response: " + res.statusCode, " : " + url);
+//     }).on('error', function(e) {
+//       console.log("Got error: " + e.message, " : " + url);
+//     });
+
+//   // http.get(url, function(res) {
+//     // console.log(responses)
+//     // console.log(res.statusCode);
+//     // console.log({status: res.statusCode, url: url});
+//     // res.on('data', function(chunk){
+//     //   console.log(chunk)
+//     //   responses.push(chunk);
+//     // });
+
+//     // res.on('end', function(){
+//     //   if (completed_requests++ == urls.length - 1) {
+//     //     // All downloads are completed
+//     //     // console.log('body:', responses.join());
+//     //     console.log(responses);
+//     //   }
+//     // });
+//   // });
+// //   }).on('error', function(e){
+// //     console.log(url);
+// //   }).on('end', function(){
+// //     console.log('end');
+// //   });
+// });
 
 
 // process.exit(1);
