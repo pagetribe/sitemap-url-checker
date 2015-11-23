@@ -7,6 +7,23 @@
 
 var http = require('http');
 var sitemap = require('sitemapper');
+var request = require('request');
+var zlib = require('zlib');
+var fs = require('fs');
+var out = fs.createWriteStream('out');
+
+// Fetch http://example.com/foo.gz, gunzip it and store the results in 'out'
+// console.log(request(process.argv.slice(2)[0]).pipe(zlib.createGunzip()));
+request(process.argv.slice(2)[0]).pipe(zlib.createGunzip()).pipe(out);
+
+// when file is finished
+out.on('finish', function(){
+  fs.readFile('out', 'utf-8', function (err, data) {
+    if (err) throw err;
+    console.log(data);
+  });
+});
+
 var urls = '';
 
 sitemap.getSites(process.argv.slice(2)[0], function(err, sites){
